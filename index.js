@@ -14,7 +14,7 @@ execa.shell('git describe --tags `git rev-list --tags --max-count=1`')
     console.log("git push origin :", newTag);
     return newTag
   }).then(tag => {
-  return execa.shell('git push origin `' + tag)
+  return execa.shell('git push origin ' + tag)
 }).then(result => {
   console.log(result.stdout);
 }); 
