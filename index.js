@@ -11,11 +11,10 @@ execa.shell('git describe --tags `git rev-list --tags --max-count=1`')
     const tbs = lastTag.split(".");
     tbs.push(Number(tbs.pop()) + 1);
     const newTag = tbs.join(".");
-    console.log("git push origin :", newTag);
+    console.log("git tag :", newTag);
     return newTag
   }).then(tag => {
-  return execa.shell('git push origin ' + tag)
+  return execa.shell(`git tag -a ${tag} -m '${tag}'`)
 }).then(result => {
   console.log(result.stdout);
 }); 
-
