@@ -1,0 +1,16 @@
+{
+  "name": "nsh-git-push-tag",
+  "version": "1.0.0",
+  "description": "auto push git last tag +1 .",
+  "main": "index.js",
+  "author": "nanyuantingfeng",
+  "license": "MIT",
+  "scripts": {
+  },
+  "bin": {
+    "nsh-git-push-tag": "./bin/index"
+  },
+  "dependencies": {
+    "execa": "*"
+  }
+}
