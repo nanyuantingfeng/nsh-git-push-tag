@@ -1,11 +1,14 @@
 {
   "name": "nsh-git-push-tag",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "auto push git last tag +1 .",
   "main": "index.js",
   "author": "nanyuantingfeng",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "publish2npm": "mkdir -p build && cp -R scripts bin package.json README.md build && npm publish ./build",
+    "clean": "rm -rf ./build"
+  },
   "bin": {
     "nsh-git-push-tag": "./bin/nsh-git-push-tag"
   },
