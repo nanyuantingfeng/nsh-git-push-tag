@@ -6,6 +6,8 @@ const util = require('./util')
 
 program.version('1.0.0')
   .option('-p, --isproduction', 'Production Version')
+  .option('-n, --noBeta', 'Privatisation Version')
+  .option('-s, --suffix [value]', 'Append Tag Suffix')
   .parse(process.argv)
 
 util.getAllTags()
@@ -23,7 +25,9 @@ util.getAllTags()
     }
 
     let prefix = program.isproduction ? '' : 'v'
-    return prefix + version + '.' + buildNo
+    let nobeta = program.noBeta ? '-noBeta' : ''
+    let suffix = program.suffix ? '-' + program.suffix : ''
+    return prefix + version + '.' + buildNo + nobeta + suffix
   })
 
   .then(tag => {
