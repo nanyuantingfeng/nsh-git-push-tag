@@ -33,6 +33,9 @@ function splitWith_N (str) {
 
 function getBuildNo (v) {
   let s = v.split('.')
+  if (s[3].indexOf('-')) {
+    s[3] = s[3].split('-')[0]
+  }
   return Number(s[3])
 }
 
@@ -40,22 +43,24 @@ function compareUnit (a, b) {
   return getBuildNo(b) - getBuildNo(a)
 }
 
-function searchUseVersion (tags, version, isProduction) {
+function searchUseVersion (tags, version, isProduction, isNoBeta) {
+  let validTags = tags.filter(line => isNoBeta
+    ? line.endsWith('-noBeta')
+    : !~line.indexOf('-'))
+
   return isProduction
-    ? searchUseVersionProd(tags, version)
-    : searchUseVersionBeta(tags, version)
+    ? searchUseVersionProd(validTags, version)
+    : searchUseVersionBeta(validTags, version)
 }
 
 function searchUseVersionBeta (tags, version) {
   return tags
-    .filter(line => !~line.indexOf('-'))
     .filter(line => line.slice(1).startsWith(version))
     .sort(compareUnit)
 }
 
 function searchUseVersionProd (tags, version) {
   return tags
-    .filter(line => !~line.indexOf('-'))
     .filter(line => line.startsWith(version))
     .sort(compareUnit)
 }

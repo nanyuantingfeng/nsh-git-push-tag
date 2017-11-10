@@ -16,7 +16,7 @@ util.getAllTags()
     let version = util.getCWDPackageVersion()
     let tags = util.split(result.stdout)
 
-    tags = util.searchUseVersion(tags, version, program.isproduction)
+    tags = util.searchUseVersion(tags, version, program.isproduction, program.noBeta)
 
     let buildNo = 0
     if (tags.length > 0) {
