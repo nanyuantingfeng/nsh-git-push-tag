@@ -3,8 +3,9 @@
  **************************************************/
 const program = require('commander')
 const util = require('./util')
+const version = require('../package.json').version;
 
-program.version('1.0.0')
+program.version(version)
   .option('-p, --isproduction', 'Production Version')
   .option('-n, --noBeta', 'Privatisation Version')
   .option('-s, --suffix [value]', 'Append Tag Suffix')
