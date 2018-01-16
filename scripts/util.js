@@ -56,12 +56,14 @@ function searchUseVersion (tags, version, isProduction, isNoBeta) {
 function searchUseVersionBeta (tags, version) {
   return tags
     .filter(line => line.slice(1).startsWith(version))
+    .filter(line => line.split('.').length === 4)
     .sort(compareUnit)
 }
 
 function searchUseVersionProd (tags, version) {
   return tags
     .filter(line => line.startsWith(version))
+    .filter(line => line.split('.').length === 4)
     .sort(compareUnit)
 }
 

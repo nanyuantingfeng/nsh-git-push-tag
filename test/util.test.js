@@ -41,4 +41,8 @@ test('searchUseVersion', () => {
     buildNo += 1
   }
   expect(buildNo).toEqual(2)
+
+  result = util.searchUseVersion(dataSource, '4.15.0', false, false)
+  expect(result).toEqual(['v4.15.0.87', 'v4.15.0.86', 'v4.15.0.5', 'v4.15.0.1', 'v4.15.0.0'])
 })
+
