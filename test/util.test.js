@@ -32,8 +32,7 @@ test('searchUseVersion', () => {
 test('searchUseVersion', () => {
   let dataSource = require('./tags.json')
   let result = util.searchUseVersion(dataSource, '4.0.0', false, true)
-  expect(result)
-    .toEqual(['v4.0.0.1-noBeta', 'v4.0.0.0-noBeta'])
+  expect(result).toEqual(['v4.0.0.1-noBeta', 'v4.0.0.0-noBeta'])
 
   let buildNo = 0
   if (result.length > 0) {
