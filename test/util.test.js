@@ -11,7 +11,7 @@ test('tags', async () => {
     isNoBeta: false,
     isMinio: false,
   })
-  expect(tag).toEqual('v1.8.0.0')
+  expect(tag).toEqual('v1.8.1.0')
 
   tag = await tags.calculateVersion({
     isProduction: true,
@@ -19,7 +19,7 @@ test('tags', async () => {
     isMinio: false,
   })
 
-  expect(tag).toEqual('1.8.0.0')
+  expect(tag).toEqual('1.8.1.0')
 
   tag = await tags.calculateVersion({
     isProduction: false,
@@ -27,7 +27,7 @@ test('tags', async () => {
     isMinio: false,
   })
 
-  expect(tag).toEqual('v1.8.0.0-noBeta')
+  expect(tag).toEqual('v1.8.1.0-noBeta')
 
   tag = await tags.calculateVersion({
     isProduction: false,
@@ -35,7 +35,7 @@ test('tags', async () => {
     isMinio: true,
   })
 
-  expect(tag).toEqual('v1.8.0.0-minio')
+  expect(tag).toEqual('v1.8.1.0-minio')
 
   tag = await tags.calculateVersion({
     isProduction: true,
@@ -43,7 +43,7 @@ test('tags', async () => {
     isMinio: false,
   })
 
-  expect(tag).toEqual('1.8.0.0-noBeta')
+  expect(tag).toEqual('1.8.1.0-noBeta')
 
   tag = await tags.calculateVersion({
     isProduction: true,
@@ -51,7 +51,7 @@ test('tags', async () => {
     isMinio: true,
   })
 
-  expect(tag).toEqual('1.8.0.0-minio')
+  expect(tag).toEqual('1.8.1.0-minio')
 
   tag = await tags.calculateVersion({
     isProduction: false,
@@ -59,7 +59,7 @@ test('tags', async () => {
     isMinio: true,
   })
 
-  expect(tag).toEqual('v1.8.0.0-noBeta-minio')
+  expect(tag).toEqual('v1.8.1.0-noBeta-minio')
 
   tag = await tags.calculateVersion({
     isProduction: true,
@@ -67,12 +67,12 @@ test('tags', async () => {
     isMinio: true,
   })
 
-  expect(tag).toEqual('1.8.0.0-noBeta-minio')
+  expect(tag).toEqual('1.8.1.0-noBeta-minio')
 })
 
 test('getCWDPackageVersion', () => {
   let version = util.getCWDPackageVersion()
-  expect(version).toEqual('1.8.0')
+  expect(version).toEqual('1.8.1')
 })
 
 test('getAllTags', () => {
