@@ -1,42 +1,49 @@
 /**************************************************
  * Created by nanyuantingfeng on 26/05/2017 18:05.
  **************************************************/
-const program = require('commander')
 const util = require('./util')
-const version = require('../package.json').version;
 
-program.version(version)
-  .option('-p, --isproduction', 'Production Version')
-  .option('-n, --noBeta', 'Privatisation Version')
-  .option('-s, --suffix [value]', 'Append Tag Suffix')
-  .parse(process.argv)
+function calculateVersion(program) {
+  return util.getAllTags()
 
-util.getAllTags()
+    .then(result => {
+      let version = util.getCWDPackageVersion()
+      let tags = util.split(result.stdout)
 
-  .then(result => {
-    let version = util.getCWDPackageVersion()
-    let tags = util.split(result.stdout)
+      tags = util.searchUseVersion(tags, version,
+        program.isProduction,
+        program.isNoBeta,
+        program.isMinio,
+      )
 
-    tags = util.searchUseVersion(tags, version, program.isproduction, program.noBeta)
+      let buildNo = 0
 
-    let buildNo = 0
-    if (tags.length > 0) {
-      buildNo = util.getBuildNo(tags[0])
-      buildNo += 1
-    }
+      if (tags.length > 0) {
+        buildNo = util.getBuildNo(tags[0])
+        buildNo += 1
+      }
 
-    let prefix = program.isproduction ? '' : 'v'
-    let nobeta = program.noBeta ? '-noBeta' : ''
-    let suffix = program.suffix ? '-' + program.suffix : ''
-    return prefix + version + '.' + buildNo + nobeta + suffix
-  })
+      let p = program.isProduction ? '' : 'v'
+      let n = program.isNoBeta ? '-noBeta' : ''
+      let m = program.isMinio ? '-minio' : ''
+      let s = program.suffix ? '-' + program.suffix : ''
 
-  .then(tag => {
-    console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', tag)
-    return util.pushNewTag(tag)
-  })
+      return p + version + '.' + buildNo + n + m + s
+    })
+}
 
-  .catch(e => {
-    console.error(e)
-  })
- 
+function tags(program) {
+
+  return calculateVersion(program)
+    .then(tag => {
+      console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', tag)
+      return util.pushNewTag(tag)
+    }).catch(e => {
+      console.error(e)
+    })
+}
+
+tags.calculateVersion = calculateVersion
+
+module.exports = tags
+
