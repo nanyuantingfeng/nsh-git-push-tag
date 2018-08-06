@@ -4,15 +4,17 @@
 const util = require('./util');
 
 const calculateVersion = require('./calculateVersion');
+const getCWDPackageVersion = require('./getCWDPackageVersion');
+const getAllTags = require('./getAllTags');
+const pushNewTag = require('./pushNewTag');
 
 module.exports = async function tags(program) {
   try {
-    const result = await util.getAllTags();
-    const version = util.getCWDPackageVersion();
+    const result = await getAllTags();
+    const version = getCWDPackageVersion();
     const tag = calculateVersion(program, result, version);
     console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', tag);
-    return util.pushNewTag(tag);
-
+    return pushNewTag(tag);
   } catch (e) {
     console.error(e);
   }
