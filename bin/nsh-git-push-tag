@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-var program = require('commander')
-var version = require('../package.json').version
-var tags = require('../scripts/tags')
+var program = require('commander');
+var version = require('../package.json').version;
+var tags = require('../scripts/tags');
 
 program.version(version)
   .option('-p, --isProduction', 'Production Version')
   .option('-n, --isNoBeta', 'Privatisation Version')
   .option('-m, --isMinio', 'Minio Version')
   .option('-s, --suffix [value]', 'Append Tag Suffix')
-  .parse(process.argv)
+  .parse(process.argv);
 
-tags(program)
+tags(program);

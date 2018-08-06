@@ -1,92 +1,58 @@
 /**************************************************
  * Created by nanyuantingfeng on 26/05/2017 18:18.
  **************************************************/
-const path = require('path')
-const execa = require('execa')
-
-function getCWDPackageVersion() {
-  let p = path.join(process.cwd(), 'package.json')
-  let obj = require(p)
-
-  if (obj && obj.version) {
-    return obj.version
-  }
-
-  return null
-}
-
-function getAllTags() {
-  return execa.shell('git tag -l')
-}
-
-function pushNewTag(tag) {
-  return execa.shell(`git tag -a ${tag} -m '${tag}'`)
-    .then(result => {
-
-      if (result.failed) {
-        return Promise.reject(new Error('push tag failed ...  try again'))
-      }
-
-      return execa.shell(`git push origin ${tag}`)
-    })
-}
-
 function splitWith_N(str) {
-  return str.split('\n')
+  return str.split('\n');
 }
 
 function getBuildNo(v) {
-  let s = v.split('.')
-  if (s[3].indexOf('-')) {
-    s[3] = s[3].split('-')[0]
+  let s = v.split('.');
+
+  if (s.length === 5) {  //x.x.x-beta.x.x
+    return Number(s[4]);
   }
-  return Number(s[3])
+
+  if (s.length === 4 && s[2].indexOf('-') > -1) {
+    return 0;
+  }
+
+  if (s.length <= 3) {
+    return 0;
+  }
+
+  if (s[3].indexOf('-') > -1) {  //x.x.x.x-suffix
+    return Number(s[3].split('-')[0]);
+  }
+
+  return Number(s[3]);
 }
 
 function compareUnit(a, b) {
-  return getBuildNo(b) - getBuildNo(a)
+  return getBuildNo(b) - getBuildNo(a);
 }
 
 function searchUseVersion(tags, version, isProduction, isNoBeta, isMinio) {
-  let validTags = tags.filter(line => {
 
-    if (isNoBeta && isMinio) {
-      return line.endsWith('-noBeta-minio')
-    }
+  let validTags = tags
+    .filter(line => /^v?\d+\.\d+\.\d+(\.\d+)?(-(beta|alpha)\.\d+(\.\d+)?)?((-\w+)(-\w+)?(-\w+)?)?$/.test(line));
 
-    if (isNoBeta) {
-      return line.endsWith('-noBeta')
-    }
+  if (isProduction) {
+    validTags = validTags.filter(line => line[0] !== 'v');
+  }
 
-    if (isMinio) {
-      return line.endsWith('-minio')
-    }
+  if (isNoBeta) {
+    validTags = validTags.filter(line => !!~line.indexOf('-noBeta'));
+  }
 
-    return !~line.indexOf('-')
-  })
+  if (isMinio) {
+    validTags = validTags.filter(line => !!~line.indexOf('-minio'));
+  }
 
-  return isProduction
-    ? searchUseVersionProd(validTags, version)
-    : searchUseVersionBeta(validTags, version)
+  return validTags
+    .filter(line => line.slice(Number(!isProduction)).startsWith(version))
+    .sort(compareUnit);
 }
 
-function searchUseVersionBeta(tags, version) {
-  return tags
-    .filter(line => line.slice(1).startsWith(version))
-    .filter(line => line.split('.').length === 4)
-    .sort(compareUnit)
-}
-
-function searchUseVersionProd(tags, version) {
-  return tags
-    .filter(line => line.startsWith(version))
-    .filter(line => line.split('.').length === 4)
-    .sort(compareUnit)
-}
-
-exports.getCWDPackageVersion = getCWDPackageVersion
-exports.getAllTags = getAllTags
-exports.split = splitWith_N
-exports.searchUseVersion = searchUseVersion
-exports.getBuildNo = getBuildNo
-exports.pushNewTag = pushNewTag
+exports.split = splitWith_N;
+exports.searchUseVersion = searchUseVersion;
+exports.getBuildNo = getBuildNo;
