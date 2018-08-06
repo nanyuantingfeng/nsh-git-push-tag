@@ -1,8 +1,6 @@
 /**************************************************
  * Created by nanyuantingfeng on 26/05/2017 18:05.
  **************************************************/
-const util = require('./util');
-
 const calculateVersion = require('./calculateVersion');
 const getCWDPackageVersion = require('./getCWDPackageVersion');
 const getAllTags = require('./getAllTags');
