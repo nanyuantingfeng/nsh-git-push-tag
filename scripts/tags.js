@@ -12,7 +12,7 @@ module.exports = async function tags(program) {
     const version = getCWDPackageVersion();
     const tag = calculateVersion(program, result, version);
     console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', tag);
-    return pushNewTag(tag);
+    return pushNewTag(tag,program.comment);
   } catch (e) {
     console.error(e);
   }
