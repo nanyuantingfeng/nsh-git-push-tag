@@ -4,8 +4,8 @@
 
 const execa = require('execa');
 
-module.exports = async function pushNewTag(tag) {
-  const result = await execa.shell(`git tag -a ${tag} -m '${tag}'`);
+module.exports = async function pushNewTag(tag,comment) {
+  const result = await execa.shell(`git tag -a ${tag} -m '${comment ? comment : tag}'`);
 
   if (result.failed) {
     return Promise.reject(new Error('push tag failed ...  try again'));
