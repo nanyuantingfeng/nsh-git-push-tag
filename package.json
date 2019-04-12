@@ -1,6 +1,6 @@
 {
   "name": "nsh-git-push-tag",
-  "version": "1.9.1",
+  "version": "1.10.0",
   "description": "auto push git last tag +1 .",
   "main": "index.js",
   "author": "nanyuantingfeng",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/nanyuantingfeng/nsh-git-push-tag#readme",
   "dependencies": {
-    "commander": "^2.15.1",
+    "commander": "^2.20.0",
     "execa": "^0.10.0"
   },
   "devDependencies": {
