@@ -9,7 +9,7 @@ program.version(version)
   .option('-n, --isNoBeta', 'Privatisation Version')
   .option('-m, --isMinio', 'Minio Version')
   .option('-s, --suffix [value]', 'Append Tag Suffix')
-  .option('-c, --comment', 'Append Tag Comment')
+  .option('-c, --comment [value]', 'Append Tag Comment')
   .parse(process.argv);
 
 tags(program);
