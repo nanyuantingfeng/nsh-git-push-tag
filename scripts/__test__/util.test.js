@@ -3,6 +3,7 @@
  **************************************************/
 const util = require('../util');
 const getCWDPackageVersion = require('../getCWDPackageVersion');
+const getFileVersion = require('../getFileVersion');
 const getAllTags = require('../getAllTags');
 const tagsText = require('./__tags');
 const tagsArr = util.split(tagsText);
@@ -10,6 +11,11 @@ const tagsArr = util.split(tagsText);
 test('getCWDPackageVersion', () => {
   const version = getCWDPackageVersion();
   expect(version).toEqual('1.8.1');
+});
+
+test('getFileVersion',async () => {
+  const version = await getFileVersion();
+  expect(version).toEqual('5.36.0');
 });
 
 test('getAllTags', async () => {
