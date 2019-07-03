@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = async function getFileVersion(fileName) {
     try {
-        const name = fileName ? fileName : 'build.gradle'
+        const name = typeof fileName === 'string' ? fileName : 'build.gradle'
         const p = path.join(process.cwd(), name);
         const data = await fs.readFileSync(p, "utf-8")
         const array = data.split("\n")

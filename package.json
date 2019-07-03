@@ -1,6 +1,6 @@
 {
   "name": "auto-tag-plus",
-  "version": "1.10.0",
+  "version": "0.0.4",
   "description": "auto push git last tag +1 .",
   "main": "index.js",
   "author": "nanyuantingfeng",
@@ -11,7 +11,7 @@
     "clean": "rm -rf ./build"
   },
   "bin": {
-    "nsh-git-push-tag": "./bin/nsh-git-push-tag"
+    "auto-tag-plus": "bin/auto-tag-plus"
   },
   "repository": {
     "type": "git",
