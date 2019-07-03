@@ -1,5 +1,5 @@
 {
-  "name": "nsh-git-push-tag--dev",
+  "name": "auto-tag-plus",
   "version": "1.10.0",
   "description": "auto push git last tag +1 .",
   "main": "index.js",
