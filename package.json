@@ -11,7 +11,7 @@
     "clean": "rm -rf ./build"
   },
   "bin": {
-    "nsh-git-push-tag": "bin/nsh-git-push-tag"
+    "nsh-git-push-tag": "./bin/nsh-git-push-tag"
   },
   "repository": {
     "type": "git",
