@@ -1,6 +1,6 @@
 {
   "name": "auto-tag-plus",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "auto push git last tag +1 .",
   "main": "index.js",
   "author": "nanyuantingfeng",
