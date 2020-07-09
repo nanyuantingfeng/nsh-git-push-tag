@@ -2,17 +2,18 @@
  * Created by nanyuantingfeng on 26/05/2017 18:18.
  **************************************************/
 function splitWith_N(str) {
-  return str.split('\n');
+  return str.split("\n");
 }
 
 function getBuildNo(v) {
-  let s = v.split('.');
+  let s = v.split(".");
 
-  if (s.length === 5) {  //x.x.x-beta.x.x
+  if (s.length === 5) {
+    //x.x.x-(beta|release|alpha).x.x
     return Number(s[4]);
   }
 
-  if (s.length === 4 && s[2].indexOf('-') > -1) {
+  if (s.length === 4 && s[2].indexOf("-") > -1) {
     return 0;
   }
 
@@ -20,8 +21,9 @@ function getBuildNo(v) {
     return 0;
   }
 
-  if (s[3].indexOf('-') > -1) {  //x.x.x.x-suffix
-    return Number(s[3].split('-')[0]);
+  if (s[3].indexOf("-") > -1) {
+    //x.x.x.x-suffix
+    return Number(s[3].split("-")[0]);
   }
 
   return Number(s[3]);
@@ -32,24 +34,26 @@ function compareUnit(a, b) {
 }
 
 function searchUseVersion(tags, version, isProduction, isNoBeta, isMinio) {
-
-  let validTags = tags
-    .filter(line => /^v?\d+\.\d+\.\d+(\.\d+)?(-(beta|alpha)\.\d+(\.\d+)?)?((-\w+)(-\w+)?(-\w+)?)?$/.test(line));
+  let validTags = tags.filter((line) =>
+    /^v?\d+\.\d+\.\d+(\.\d+)?(-(\w+?)\.\d+(\.\d+)?)?((-\w+)(-\w+)?(-\w+)?)?$/.test(
+      line
+    )
+  );
 
   if (isProduction) {
-    validTags = validTags.filter(line => line[0] !== 'v');
+    validTags = validTags.filter((line) => line[0] !== "v");
   }
 
   if (isNoBeta) {
-    validTags = validTags.filter(line => !!~line.indexOf('-noBeta'));
+    validTags = validTags.filter((line) => !!~line.indexOf("-noBeta"));
   }
 
   if (isMinio) {
-    validTags = validTags.filter(line => !!~line.indexOf('-minio'));
+    validTags = validTags.filter((line) => !!~line.indexOf("-minio"));
   }
 
   return validTags
-    .filter(line => line.slice(Number(!isProduction)).startsWith(version))
+    .filter((line) => line.slice(Number(!isProduction)).startsWith(version))
     .sort(compareUnit);
 }
 

@@ -19,6 +19,7 @@ module.exports = function calculateVersion(program, tagsText, version) {
     buildNo += 1;
   }
 
+
   let p = program.isProduction ? '' : 'v';
   let n = program.isNoBeta ? '-noBeta' : '';
   let m = program.isMinio ? '-minio' : '';
