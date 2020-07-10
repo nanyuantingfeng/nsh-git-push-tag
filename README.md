@@ -1,5 +1,10 @@
 # nsh-git-push-tag
-auto push git tag +1
+
+> auto push git tag +1
+
+[![Build Status](https://travis-ci.org/nanyuantingfeng/nsh-git-push-tag.svg?branch=master)](https://travis-ci.org/nanyuantingfeng/nsh-git-push-tag)
+[![GitHub repo size](https://img.shields.io/github/repo-size/nanyuantingfeng/nsh-git-push-tag)](https://img.shields.io/github/repo-size/nanyuantingfeng/nsh-git-push-tag)
+
 
 参数          |      描述       
 ------------- | -------------  
