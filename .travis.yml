@@ -18,4 +18,4 @@ deploy:
     secure: $NPM_TOKEN
   on:
     tags: true
-    repo: nanyuantingfeng/webpack-micro-cluster
+    repo: nanyuantingfeng/nsh-git-push-tag
